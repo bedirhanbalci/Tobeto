@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <style>
+      @keyframes anim1 {
+        from {
+          background-color: red;
+        }
+        to {
+          background-color: greenyellow;
+        }
+      }
+
+      @keyframes anim2 {
+        0% {
+          background-color: red;
+        }
+        25% {
+          background-color: yellow;
+        }
+        50% {
+          background-color: turquoise;
+        }
+        100% {
+          background-color: green;
+        }
+      }
+
+      @keyframes anim3 {
+        0% {
+          background-color: red;
+          left: 0;
+          top: 0;
+        }
+        25% {
+          background-color: yellow;
+          left: 200px;
+          top: 0;
+        }
+        50% {
+          background-color: steelblue;
+          left: 200px;
+          top: 200px;
+        }
+        75% {
+          background-color: violet;
+          left: 0;
+          top: 200px;
+        }
+        100% {
+          background-color: red;
+          top: 0;
+          left: 0;
+        }
+      }
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+
+      #d1 {
+        animation-name: anim1;
+        animation-duration: 4s;
+      }
+      #d2 {
+        animation-name: anim2;
+        animation-duration: 8s;
+      }
+      #d3 {
+        position: relative;
+        animation-name: anim3;
+        animation-duration: 8s;
+        animation-timing-function: linear;
+        animation-delay: 2s;
+        /* animation-iteration-count: 3; */
+        /* animation-iteration-count: infinite; */
+        /* animation-direction:reverse; */
+
+        /* animation-iteration-count: 2;
+        animation-direction: alternate; */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Animations</h1>
+    <hr />
+
+    <!-- <div id="d1"></div> -->
+    <!-- <div id="d2"></div> -->
+    <div id="d3"></div>
+  </body>
+</html>

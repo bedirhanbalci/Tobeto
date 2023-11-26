@@ -1,0 +1,83 @@
+--JOIN
+SELECT product_name, category_name FROM products
+inner join categories on categories.category_id = products.category_id
+
+--hangi sipariş hangi kargo şirketi ile ne zaman gönderilmiş?
+--orders - shippers
+select orders.order_id, orders.order_date, shippers.company_name from orders
+inner join shippers on shippers.shipper_id = orders.ship_via
+
+--hangi siparişi hangi çalışan almış, hangi müşteri vermiştir?
+--orders - employees - customers
+-- || => concat()
+select orders.order_id, employees.first_name || ' ' || employees.last_name as "AD SOYAD",
+customers.company_name from orders
+inner join employees on employees.employee_id = orders.employee_id
+inner join customers on customers.customer_id = orders.customer_id
+
+--LEFT JOIN
+--çalışanın aldığı siparişleri listeleyelim
+select employees.first_name || ' ' || employees.last_name as "AD SOYAD", 
+order_id, order_date from employees
+left join orders on orders.employee_id = employees.employee_id
+
+--RIGHT JOIN
+--çalışanın aldığı siparişleri listeleyelim
+select employees.first_name || ' ' || employees.last_name as "AD SOYAD", order_id, order_date from employees
+right join orders on orders.employee_id = employees.employee_id
+
+
+select c.company_name, c.customer_id, o.order_date from customers c
+right join orders o on o.customer_id = c.customer_id
+
+-- FULL OUTER JOIN
+select c.company_name, o.order_id from customers c
+full outer join orders o on o.customer_id = c.customer_id
+
+--group by => sütuna göre gruplama
+--ürün bazlı her grubun toplam sipariş miktarı?
+select p.product_name, sum(quantity) from order_details od
+inner join products p on p.product_id = od.product_id
+group by product_name
+
+--hangi kategoride kaç ürün var
+select category_name, count(*) from products p
+inner join categories c on c.category_id = p.category_id
+group by category_name
+
+
+--hangi ülkeye ne kadarlık satış yapılmıştır?
+--1.yöntem
+select c.country, sum(od.quantity * od.unit_price) as toplam_satis from orders o
+inner join order_details od on od.order_id = o.order_id
+inner join customers c on c.customer_id = o.customer_id
+group by c.country
+order by toplam_satis desc;
+--2.yöntem cast ile virgülden sonra basamak sayısını azalttık
+select o.ship_country, cast(sum(unit_price * quantity) as decimal(10,2)) toplamSatis from order_details od
+inner join orders o on od.order_id = o.order_id
+group by o.ship_country
+order by toplamSatis desc
+
+--having => filtreleme
+--görev ve işlev bakımından => where
+--gruop by kullandığımız noktada having kullanmamız gerekiyor
+
+select product_id, sum(quantity) from order_details
+group by product_id
+having sum(quantity) > 1300
+
+--where => sütunumuza uygulanıyor
+--having => ram'de hesaplanmış değere uygulanıyor
+--stok sayısı 20 den fazla - toplam ürün sayısı 1'den fazla olan kategorileri listele
+select category_id, units_in_stock from products
+where units_in_stock > 20
+group by category_id, units_in_stock
+having count(*) > 1
+
+--250 adetten fazla satılan ürünler
+select p.product_name, sum(quantity) as "Toplam Sipariş Miktarı" from order_details od
+inner join products p on p.product_id = od.product_id
+group by p.product_name
+having sum(quantity) > 250
+order by "Toplam Sipariş Miktarı"

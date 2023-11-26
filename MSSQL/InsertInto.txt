@@ -1,0 +1,17 @@
+--Bir tablodan diğer bir tabloya veri kopyalama
+
+--select CompanyName, ContactName
+--into MyTempTable
+--from Customers
+--where 1 = 0
+
+insert into MyTempTable(CompanyName, ContactName)
+select CompanyName, ContactName from Customers
+where ContactName is not null
+
+insert into MyTempTable(CompanyName, ContactName)
+select CompanyName, ContactName from Suppliers
+where ContactName is not null
+
+select * from MyTempTable
+Drop table MyTempTable

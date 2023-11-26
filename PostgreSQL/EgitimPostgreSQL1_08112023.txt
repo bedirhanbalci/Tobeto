@@ -1,0 +1,111 @@
+-- SQL => Structured Query Language
+-- Veri Sorgulama, veri manipülasyonu
+
+--SELECT
+--Select [Kolonlar]/* from [tabloadi]
+--* => tüm alanları seç
+
+select * from products;
+
+select product_name, category_id from products;
+
+
+--WHERE
+--den dan anlamı katar
+--Filtreleme işlemleri uygular
+
+select * from products where unit_price>100;
+
+select * from products where unit_price > 50 and unit_price < 100;
+
+select * from products where unit_price > 50 and category_id>3;
+
+select * from products where unit_price between 50 and 100;
+
+select * from products where unit_price>50 or category_id>3;
+
+
+--IN()
+--birden fazla filtrelemeyi aynı anda yapmamızı sağlar
+--lower sayesinde verdiğim string ifadesinin harfleri küçük olsa bile bul ve getir diyorum
+
+select * from products where product_name IN('Chai', 'Chang', 'ikura');
+
+select * from products where lower(product_name) IN('chai', 'chang', 'ikura');
+
+select * from products where category_id in(1,2,3);
+
+
+--LIKE
+--kalıba benzer ifadeleri getirir
+--% => ilgili metnin sağına veya soluna eklendiğinde metinden önce veya sonrasında ne yazacağını önemsemiyorum
+
+select * from products where product_name like '%t%';
+
+select * from products where lower(product_name) like 't%';
+
+select * from products where lower(product_name) like '%t';
+
+-- _ => karakter atlama
+select * from products where product_name like '__r%'
+
+
+--BUILT - IN FUNCTIONS
+--summary => toplama
+select sum(unit_price) from products where product_id in(1,2,3)
+
+--average => ortalama
+select avg(unit_price) from products
+
+--maximum => veriler arasından maksimum değeri gösterir
+select max(unit_price) from products
+
+--minimum => veriler arasından minimum değeri gösterir
+select min(unit_price) from products
+
+--count => adet hesabı yapar
+select count (*) from products where unit_price>50
+
+--distinct
+--tekrarları engeller
+select distinct city from employees
+
+select count (distinct city) from employees
+
+
+--sub-query => iç içe sorgular
+--ortalamanın altında bir fiyata sahip olan ürünlerimin listesini görmek istiyorum
+
+select avg(unit_price) from products
+select * from products where unit_price < 28.83389609200614
+
+select * from products
+where unit_price < (select avg(unit_price) from products)
+
+--en pahalı ürünümün bilgilerini getir
+select max(unit_price) from products
+select * from products where unit_price = 263.5
+
+select unit_price from products where unit_price = (select max(unit_price) from products)
+
+--order by => sıralama
+--default olarak küçükten büyüğe sıralar
+-- asc(artan) veya desc(azalan) kullanılabilir
+
+select product_name, unit_price from products order by unit_price
+
+select product_name, unit_price from products order by unit_price asc
+
+select product_name, unit_price from products order by unit_price desc
+
+
+-- alias => as => takma ad
+
+select current_date as "Bugünün Tarihi"
+select date_part('month', current_date)
+select date_part('year', current_date)
+select date_part('day', current_date)
+
+--Aşağıdaki iki kısım postgresql de çalışmıyor!
+--Datediff('year', date1,date2)
+--GetDate() => Güncel database saat-tarihini verir.

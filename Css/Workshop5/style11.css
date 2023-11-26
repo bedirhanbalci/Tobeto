@@ -1,0 +1,42 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+a[target] {
+  color: blue;
+}
+
+a[target="_blank"] {
+  color: brown;
+}
+a[target="_self"] {
+  text-decoration: underline;
+}
+
+label {
+  text-align: right;
+  display: block;
+  width: 262px;
+  /* border: 1px solid red; */
+  font-size: 14px;
+  font-weight: bold;
+}
+input {
+  padding: 5px;
+  width: 250px;
+  border: 2px solid rgb(3, 70, 42);
+}
+input[required] {
+  border-color: red;
+}
+
+input[type="tel"] {
+  color: chocolate;
+}

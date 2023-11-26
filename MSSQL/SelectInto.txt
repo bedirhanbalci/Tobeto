@@ -1,0 +1,19 @@
+--Belirli bir tablonun verilerini kopyalayıp  yeni bir tablo oluşturmak.
+
+select * from Customers
+
+select *
+into Customers2
+from Customers
+
+select CompanyName, ContactName, City, Country
+into Customers2
+from Customers
+
+select CompanyName, ContactName, City, Country
+into Customers2
+from Customers
+WHERE Country = 'Mexico'
+
+DROP TABLE Customers2
+select * from Customers2

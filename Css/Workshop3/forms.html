@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head></head>
+
+    <body>
+        
+        <h1>Forms - Formlar</h1>
+        <hr>
+
+        <form action="/submitform.php" method="post">
+            <label>Adınız</label><br>
+            <input name="firstname" type="text"><br><br>
+
+            <label>Soyadınız</label><br>
+            <input name="lastname" type="text" ><br><br>
+
+            <label>Yaşınız</label><br>
+            <input name="age" type="number"><br><br>
+
+            <label>Doğum Tarihiniz</label><br>
+            <input name="birthdate" type="date"><br><br>
+
+            <label>Doğum Tarihiniz 2</label><br>
+            <input name="birthdate2" type="datetime-local"><br><br>
+
+            <label>Doğum Tarihiniz 3</label><br>
+            <input name="birthdate3" type="week"><br><br>
+
+            <label>Doğum Tarihiniz 4</label><br>
+            <input name="birthdate4" type="month"><br><br>
+
+            <label>Doğum Tarihiniz 5</label><br>
+            <input name="birthdate5" type="time"><br><br>
+
+            
+            <label>Şifreniz</label><br>
+            <input name="pass" type="password"><br><br>
+
+            <label>Favori Renginiz</label><br>
+            <input name="mycolor" type="color"><br><br>
+
+            <input name="isstudent" type="checkbox">
+            <label>Öğrenci misiniz?</label><br>
+            <input name="isworking" type="checkbox">
+            <label>Çalışıyor musunuz?</label>
+            <br><br>
+
+            <label>Takımınız</label><br>
+            <input name="spor" value="fb" type="radio">Fenerbahçe <br>
+            <input name="spor" value="gs" type="radio">Galatasaray <br>
+            <input name="spor" value="bjk" type="radio">Beşiktaş <br>
+            <input name="spor" value="ts" type="radio">Trabzonspor <br><br>
+
+            <label>En Sevdiğiniz Renk</label>
+            <select name="favcolor">
+                <option value="">Seçiniz</option>
+                <optgroup label="Mavi Renkler">
+                    <option value="blue">Mavi</option>
+                    <option value="light blue">Turkuaz</option>
+                </optgroup>
+
+                <optgroup label="Diğer Renkler">
+                    <option value="green">Yeşil</option>
+                    <option value="yellow">Sarı</option>
+                </optgroup>
+            </select><br><br>
+
+            <label>Hakkınızda</label><br>
+            <textarea name="about" cols="30" rows="5"></textarea><br><br>
+
+            <input name="myhidden" type="hidden" value="123">
+
+            <label>CV'niz</label><br>
+            <input name="cv" type="file"><br><br>
+
+            <label>Değer Aralığı</label><br>
+            <input name="myrange" type="range" min="10" max="100"><br><br>
+
+            <input type="button" value="Gönder Manuel">
+            <input type="submit" value="Gönder Submit">
+            <input type="reset"><br><br>
+
+
+            <br><br><br><br><br><br><br><br><br><br>
+        </form>
+    </body>
+</html>

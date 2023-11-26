@@ -1,0 +1,140 @@
+--Brazil'de bulunan müþterilerimin bilgileri (Þirket Adý, TemsilciAdi, Adres, Þehir, Ülke)
+select CompanyName, ContactName, Address, City, Country 
+from customers where Country = 'Brazil'
+
+--Brazil'de olmayan müþterilerimin bilgileri (Þirket Adý, TemsilciAdi, Adres, Þehir, Ülke)
+select CompanyName, ContactName, Address, City, Country 
+from customers where Country <> 'Brazil'
+
+-- ülkesi Spain ya da France ya da Germany olan müþterilerim?
+select CompanyName, ContactName, Address, City, Country 
+from customers where Country = 'Spain' OR Country = 'France' OR Country = 'Germany'
+--select CompanyName, ContactName, Address, City, Country 
+--from customers where Country in ('Spain','France','Germany')
+
+-- faks numarasýný bilmediðim müþterilerim kimler?
+select * from Customers where Fax is NULL
+
+-- Londra'da ya da Paris'de bulunan müþterilerim kimler?
+select * from Customers where City in ('London', 'Paris')
+
+-- Müþterilerimin içinde en uzun isimli müþteri kimdir?(harf sayýsý)
+select top 1 CompanyName, LEN(CompanyName) as Length from Customers
+order by Length desc
+
+-- Hem México D.F.'da ikamet eden hem de iletiþim kiþisi ünvanýnda 'owner' olan müþterilerim kimler?
+select * from Customers where City = 'México D.F.' and ContactTitle = 'Owner'
+
+-- C ile baþlayan ürünlerimin isimleri ve fiyatlarý nelerdir?
+select ProductName, UnitPrice from Products where ProductName like 'C%'
+order by UnitPrice desc
+
+-- Adý (FirstName) 'A' harfiyle baþlayan çalýþanlarýn (Employees); Ad, Soyad ve Doðum Tarihleri
+select FirstName, LastName, BirthDate from Employees where FirstName like 'A%'
+
+-- 1963 ve 1952 yýlýnda doðum günü olan çalýþanlarým kimler?
+select FirstName, LastName, BirthDate from Employees 
+where YEAR(BirthDate) = 1963 or YEAR(BirthDate) = 1952
+
+-- Bugün doðum günü olan çalýþanlaýrm kimler?
+select FirstName, LastName, BirthDate from Employees 
+WHERE MONTH(BirthDate) = MONTH(GETDATE()) AND 
+DAY(BirthDate) = DAY(GETDATE())
+
+-- Ýsminde 'RESTAURANT' geçen müþterilerimin þirket adlarý nelerdir?
+select CompanyName from Customers where CompanyName like '%RESTAURANT%'
+
+-- 50$ ile 100$ arasýnda birim fiyatý bulunan tüm ürünlerimin adlarý ve fiyatlarý nelerdir?
+select ProductName, UnitPrice from Products where UnitPrice between 50 and 100
+
+-- 1 Temmuz 1996 ile 31 Aralýk 1996 tarihleri arasýndaki sipariþlerin ID ve Tarihleri nelerdir?
+select OrderID, OrderDate from Orders where OrderDate between '1996-07-01' and '1996-12-31'
+
+-- En pahalý ürünümün adý nedir?
+select top 1 ProductName, UnitPrice from Products order by UnitPrice desc
+-- ya da
+select ProductName, UnitPrice from Products 
+where UnitPrice = (select max(UnitPrice) from Products)
+
+-- En ucuz 5 ürünü getiriniz
+select top 5 ProductName, UnitPrice from Products order by UnitPrice asc
+
+-- En ucuz 5 ürünün ortalama fiyatý nedir?
+select avg(T.UnitPrice) as Average
+	from (select top 5 UnitPrice from Products order by UnitPrice asc) as T
+
+-- En ucuz 5 ürünün toplam fiyatý nedir?
+select sum(T.UnitPrice) as Total
+	from (select top 5 UnitPrice from Products order by UnitPrice asc) as T
+
+-- Ürün adlarýnýn hepsine ön ek olarak 'PR ' ekleyerek ve büyük harf olarak ekrana yazdýrýnýz.
+select 'PR ' + UPPER(ProductName) from Products
+
+-- 1997 yýlý þubat ayýnda kaç sipariþim var?
+select count(*) as OrderCountBy1997Feb from Orders 
+where year(OrderDate) = 1997 and month(OrderDate) = 2
+
+-- 1997 yýlýnda sipariþ veren müþterilerimin ContactName ve telefon numaralarý nelerdir?
+select distinct C.ContactName, C.Phone  from Orders as O
+	inner join Customers as C ON C.CustomerID = O.CustomerID
+where year(OrderDate) = 1997
+
+-- Taþýma ücreti 40 ve üzeri olan sipariþlerimin ülkesi, þehri, müþterisinin adý nedir?
+select distinct C.CompanyName, C.Country, C.City from Orders as O
+	inner join Customers as C ON C.CustomerID = O.CustomerID
+where O.Freight >= 40
+
+-- Geciken sipariþlerim?
+select * from Orders
+where ShippedDate >= RequiredDate
+
+-- Geciken sipariþlerimin tarihi, müþterisinin adý nedir?
+select O.OrderDate, C.CompanyName from Orders as O
+	inner join Customers as C ON C.CustomerID = O.CustomerID
+where O.ShippedDate >= O.RequiredDate
+
+-- 10248 nolu sipariþte satýlan ürünlerin adý, kategorisinin adý, adedi (category,product,orderdetails)
+select P.ProductName, C.CategoryName, OD.Quantity from Orders as O
+	inner join [Order Details] as OD on OD.OrderID = O.OrderID
+	inner join Products as P on P.ProductID = OD.ProductID
+	inner join Categories as C on C.CategoryID = P.CategoryID
+WHERE O.OrderID = 10248
+
+-- 3 numaralý ID ye sahip çalýþanýn 1997 yýlýnda sattýðý ürünlerin adý ve adedi nedir?
+select P.ProductName, OD.Quantity from Orders as O
+	inner join [Order Details] as OD on OD.OrderID = O.OrderID
+	inner join Products as P on P.ProductID = OD.ProductID
+where O.EmployeeID = 3 AND YEAR(O.OrderDate) = 1997
+
+-- 1997 yýlýnda bir defasýnda en çok satýþ yapan çalýþanýmýn ID, Ad, soyad, Toplam satýþý ?
+select top 1 O.OrderID, E.EmployeeID, E.FirstName, E.LastName, SUM(OD.Quantity * OD.UnitPrice) AS 
+Toplam from Orders as O
+	inner join [Order Details] as OD on OD.OrderID = O.OrderID
+	inner join Employees as E on E.EmployeeID = O.EmployeeID
+where YEAR(O.OrderDate) = 1997
+group by O.OrderID, E.EmployeeID, E.FirstName, E.LastName
+order by Toplam desc
+
+-- En pahalý ürünümün adý, fiyatý ve kategorisinin adý nedir?
+select top 1 P.ProductName, P.UnitPrice, C.CategoryName from Products as P
+	inner join Categories as C on C.CategoryID = P.CategoryID
+order by P.UnitPrice desc
+
+-- Sipariþi alan personelin adý,soyadý,sipariþ tarihi,sipariþ ID. (Sýralama sipariþ tarihine göre)
+select E.FirstName, E.LastName, O.OrderID, O.OrderDate from Orders as O
+		inner join Employees as E on E.EmployeeID = O.EmployeeID
+order by O.OrderDate
+
+-- SON 5 sipariþimin ortalam fiyatý ve orderID nedir? (sepet toplamý ortalamasý)
+SELECT O.OrderID, AVG(OD.UnitPrice) AS ProductAverage
+FROM Orders AS O
+INNER JOIN [Order Details] AS OD ON OD.OrderID = O.OrderID
+WHERE O.OrderID IN (SELECT TOP 5 OrderID FROM Orders ORDER BY OrderDate DESC)
+GROUP BY O.OrderID
+
+-- En çok satýlan ürünümün(adet bazýnda) adý, kategoirisin adý ve tedariçisinin adý
+select P.ProductName, OD.Quantity,C.CategoryName, S.CompanyName AS SupplierName from [Order Details] as OD
+	inner join Products as P on P.ProductID = OD.ProductID
+	inner join Categories as C on C.CategoryID = P.CategoryID
+	inner join Suppliers as S on S.SupplierID = P.SupplierID
+WHERE Quantity = (SELECT MAX(Quantity) from [Order Details])

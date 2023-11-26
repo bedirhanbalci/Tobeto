@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      #d1 {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        opacity: 1;
+        transition: 2s all;
+      }
+      #d1:hover {
+        opacity: 0.5;
+      }
+
+      #d2 {
+        width: 100px;
+        height: 100px;
+        background-color: darkorange;
+        transition: width 2s, height 1s;
+      }
+      #d2:hover {
+        width: 200px;
+        height: 200px;
+      }
+
+      #d3 {
+        width: 100px;
+        height: 100px;
+        background-color: deeppink;
+        opacity: 1;
+        /* transition-property: width; */
+        transition-duration: 2s;
+        transition-timing-function: linear;
+        transition-delay: 1s;
+      }
+
+      #d3:hover {
+        width: 300px;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Transitions</h1>
+    <hr />
+
+    <!-- <div id="d1"></div> -->
+    <!-- <div id="d2"></div> -->
+    <div id="d3"></div>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>	6.0 - Sipariş Denetim Sistemi 1.6 </title>
+	<script type="text/javascript" src="Siparis.js"></script>
+	<link rel="stylesheet" href="Siparis.css">
+</head>
+
+<body onload="sayfaYukle();">
+	<table class="table-1">
+		<tr>
+			<td>
+				Ürün
+			</td>
+			<td>
+				<input id="input-1" type="text">
+			</td>
+		</tr>
+	    <tr>
+			<td>
+				Sipariş Adedi
+			</td>
+			<td>
+				<input id="input-2" type="text">
+		    </td>
+		</tr>
+		<tr class="tr-1">
+			<td class="td-1">
+				<button class="button-1" type="button" onclick="adetSiparis('ADET');"> ...Adet </button>
+			</td>
+			<td class="td-1">
+				<button class="button-1" type="button" onclick="adetSiparis('ON');"> 10 Adet </button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<p id="p-1">  </p>
+			</td>
+		</tr>
+		<tr class="tr-2">
+			<td colspan="2">
+				<button class="button-2" type="button" onclick="temizle();"> Formu Temizle </button>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,1 @@
+select *, dbo.NetSale(UnitPrice, Quantity, Discount) as NetSale from [Order Details]

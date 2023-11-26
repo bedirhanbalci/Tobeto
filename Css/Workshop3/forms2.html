@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head></head>
+
+<body>
+
+    <h1>Forms Input Attributes - Formlar Input Özellikleri</h1>
+    <hr>
+
+    <form action="">
+        <label for="fname">Adınız</label><br>
+        <input name="fname" type="text" placeholder="John" 
+        value="" required><br>
+
+        <label for="lname">Soyadınız</label><br>
+        <input name="lname" type="text" placeholder="Doe" 
+        value="" required autofocus><br><br>
+
+        <label for="email">E-posta adresiniz</label><br>
+        <input name="email" type="email" placeholder="john@doe.com" 
+        value="" autocomplete="off"><br><br>
+
+        <label for="address">Adresiniz</label><br>
+        <input name="address" type="text" placeholder="A cad B sk C apt." 
+        value="A cad B sk C apt." readonly><br><br>
+
+        <label for="workaddress">İş Adresiniz</label><br>
+        <input name="workaddress" type="text" placeholder="A cad B sk C apt." 
+        value="A cad B sk C apt." disabled><br><br>
+
+        <label for="pincode">PIN No</label><br>
+        <input name="pincode" type="text" placeholder="1234" size="2"><br><br>
+
+
+        <label for="pincode2">PIN No 2</label><br>
+        <input name="pincode2" type="number" placeholder="1234" size="2" min="1000" max="9999"><br><br>
+
+        <label for="pass">Şifreniz</label><br>
+        <input name="pass" type="password" placeholder="******" minlength="6" maxlength="16"><br><br>
+
+        <label for="colors">Renkler</label><br>
+        <select name="colors" multiple>
+            <option value="">Seçiniz</option>
+            <option value="blue">Mavi</option>
+            <option value="green">Yeşil</option>
+            <option value="yellow">Sarı</option>
+        </select><br><br>
+
+        <label for="liste">Liste</label><br>
+        <input name="liste" list="cities" type="text"><br><br>
+
+        <datalist id="cities">
+            <option value="İstanbul"></option>
+            <option value="İzmir"></option>
+            <option value="Kars"></option>
+            <option value="Kastamonu"></option>
+        </datalist>
+
+        <input type="submit" value="Gönder">
+        <!--<button type="submit">Gönder 2</button>-->
+    </form>
+</body>
+</html>

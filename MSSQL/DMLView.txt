@@ -1,0 +1,38 @@
+-- VIEW oluþturma
+CREATE VIEW ProductsByCategoriesAndSuppliers
+as
+select
+	P.ProductName, C.CategoryName, S.CompanyName
+from Products as P
+	inner join Categories as C on C.CategoryID = P.CategoryID
+	inner join Suppliers as S on S.SupplierID = P.SupplierID
+
+
+select * from ProductsByCategoriesAndSuppliers
+
+
+select
+	ProductName, CategoryName	
+from ProductsByCategoriesAndSuppliers
+
+
+select
+	ProductName, CategoryName	
+from ProductsByCategoriesAndSuppliers
+where CategoryName = 'Condiments'
+order by ProductName
+
+-- VIEW düzeltme
+ALTER VIEW ProductsByCategoriesAndSuppliers
+as
+select
+	P.ProductID, P.ProductName, C.CategoryID, C.CategoryName, S.SupplierID, S.CompanyName
+from Products as P
+	inner join Categories as C on C.CategoryID = P.CategoryID
+	inner join Suppliers as S on S.SupplierID = P.SupplierID
+
+-- VIEW silme
+DROP VIEW ProductsByCategoriesAndSuppliers
+
+-- sistemde önceden olan view görüntüleme
+select * from [Category Sales for 1997]

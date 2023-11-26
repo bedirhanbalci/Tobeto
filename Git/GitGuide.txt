@@ -1,0 +1,24 @@
+Git Start Guide
+----------------
+1- git init (.git başlangıç)
+
+2- git add .(tüm dosyalarınızı Remote repoya atmak üzere ekler.) veya git add ornekproje.js (istediğiniz dosyaları ekler)
+
+3- git add README.md (Projelerinizi açıklamanız için oluşturulması gereken bir dosyadır.)(Daha sonra Github(Remote Repodan)'da oluşturabilirsiniz.)
+
+4- git commit -m "first commit" --> " " (commitleri projenize uygun bir şekilde yazın.)
+
+5- git status (dal / dallar temiz mi ? kontrolü için) (eklenmemiş bir dosya var mı ? kontrolü)
+
+6- git branch -M main (main(local repo) <--> main(Remote repo)) (local repo ile remote repo dalları'nın eşleşmesi)
+
+7- git remote add origin https://github.com/balciemirhan/deneme.git (https://Github'da oluşturduğunuz deponun url kısmı)
+
+8- git push -u origin main (local repo'dan remote repo'ya geçiş)(Artık Github'da deponuzu görebilirsiniz.) :)
+
+9- Github üzerinde yaptığınız herhangi bir değişikliği(Remote Repo), kendi reponuza yani (Local Repo)'ya
+çekmek için;
+git pull 'u uygulayın böylece local reponuz'da update'i almış olur ve hata almazsınız.
+
+10- git pull ile Remote reponuzdan <---> local reponuza çekmiş olduğunuz dosyalarınızı, görüntülemek yani arasındaki farkları görebilmek için;
+git diff uygulayabilirsiniz.

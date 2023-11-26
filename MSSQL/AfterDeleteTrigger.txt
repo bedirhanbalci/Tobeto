@@ -1,0 +1,11 @@
+
+ALTER TRIGGER AfterDelete
+   ON Employees
+   AFTER DELETE
+AS 
+BEGIN
+
+	INSERT INTO DeletedEmployees
+	select EmployeeID, FirstName, LastName, GETDATE() from deleted
+
+END

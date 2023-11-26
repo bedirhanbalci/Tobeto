@@ -1,0 +1,44 @@
+select * from Suppliers
+select * from Customers
+
+begin transaction
+
+
+	INSERT INTO [dbo].[Suppliers]([CompanyName],[ContactName],[ContactTitle],[Address],[City],
+	[Region],[PostalCode],[Country],[Phone],[Fax],[HomePage])
+	VALUES('Company X2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+
+if @@ERROR <> 0
+	ROLLBACK
+
+	INSERT INTO [dbo].[Customers]([CustomerID],[CompanyName],[ContactName],[ContactTitle],[Address],
+	[City],[Region],[PostalCode],[Country],[Phone],[Fax])
+	VALUES('COMX2','Company X2',NULL,NULL,NULL,NULL,NULL,'1234567890',NULL,NULL,NULL)
+
+if @@ERROR <> 0
+	ROLLBACK
+ELSE
+	COMMIT
+
+
+--YA DA--
+
+
+begin transaction
+
+	begin try
+		INSERT INTO [dbo].[Suppliers]([CompanyName],[ContactName],[ContactTitle],[Address],[City],
+		[Region],[PostalCode],[Country],[Phone],[Fax],[HomePage])
+		VALUES('Company X2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+
+		INSERT INTO [dbo].[Customers]([CustomerID],[CompanyName],[ContactName],[ContactTitle],[Address],
+		[City],[Region],[PostalCode],[Country],[Phone],[Fax])
+		VALUES('COMX2','Company X2',NULL,NULL,NULL,NULL,NULL,'1234567890',NULL,NULL,NULL)
+
+		COMMIT
+	end try
+
+	begin catch
+		ROLLBACK
+		SELECT ERROR_NUMBER() AS N, ERROR_LINE() AS L, ERROR_MESSAGE() AS M
+	end catch

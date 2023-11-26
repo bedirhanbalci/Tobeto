@@ -1,0 +1,16 @@
+CREATE TRIGGER InsteadOfDelete
+   ON Shippers
+   Instead of delete
+AS 
+BEGIN
+
+	DECLARE @ShipperID int
+	select @ShipperID = ShipperID from deleted
+
+	update ShippersLogs set Deleted = 1
+	where ShipperID = @ShipperID
+
+	delete from Shippers
+	where ShipperID = @ShipperID
+
+END

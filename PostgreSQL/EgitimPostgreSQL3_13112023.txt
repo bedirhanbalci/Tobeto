@@ -1,0 +1,34 @@
+--EXIST - NOT EXISTS (Mevcut mu ?)
+-- ürün fiyatı 20 den küçük olan tedarikçileri listeler
+select company_name from suppliers
+where exists (select product_name from products
+			 where products.supplier_id = suppliers.supplier_id
+			 and unit_price < 20)
+			 
+select company_name from suppliers
+where not exists (select product_name from products
+			 where products.supplier_id = suppliers.supplier_id
+			 and unit_price = 22)
+			 
+			 
+-- '03/05/1998' ile '04/05/1998' tarihleri arasında sipariş almış çalışanlar exist işlevi ile listeleyelim
+select * from employees e
+where exists (select * from orders o
+			 where o.employee_id = e.employee_id
+			 and o.order_date between '1998-05-03' and '1998-05-04')
+			 
+			 
+--ALL
+--Mantıksal Operatör - AND gibi
+--Tüm alt sorgu değerleri koşulu sağlıyorsa => TRUE
+select product_name from products
+where product_id = ALL(select distinct product_id from order_details
+					  where quantity = 10)
+
+
+--ANY
+--Mantıksal Operatör - OR gibi
+--Alt sorgu değerlerinden herhangi biri koşulu sağlıyorsa => TRUE
+select product_name from products
+where product_id = ANY(select distinct product_id from order_details
+					  where quantity > 100)				  

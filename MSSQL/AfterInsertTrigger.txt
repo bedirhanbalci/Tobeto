@@ -1,0 +1,15 @@
+
+CREATE TRIGGER AfterInsert
+   ON  Employees
+   AFTER INSERT
+AS 
+BEGIN
+	DECLARE @EmployeeID int, @EmployeeFirstName nvarchar(10), @EmployeeLastName nvarchar(20)
+	select @EmployeeID = EmployeeID, @EmployeeFirstName = FirstName, @EmployeeLastName = LastName from inserted
+
+	DECLARE @Note nvarchar(300)
+	set @Note =  @EmployeeFirstName + ' ' +  @EmployeeLastName + ' isimli personel ' + 
+	CONVERT(nvarchar(30), GETDATE()) + ' tarih ve saatin de iþe baþlamýþtýr.'
+
+	UPDATE Employees set Notes = @Note where EmployeeID = @EmployeeID
+END

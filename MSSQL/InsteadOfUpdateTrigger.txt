@@ -1,0 +1,17 @@
+
+CREATE TRIGGER InsteadOfUpdate
+   ON Shippers
+   INSTEAD OF UPDATE
+AS 
+BEGIN
+
+	DECLARE @ShipperID int, @CompanyName nvarchar(40), @Phone nvarchar(24)
+	select @ShipperID = ShipperID, @CompanyName = CompanyName, @Phone = Phone from inserted
+
+	UPDATE ShippersLogs SET CompanyName = @CompanyName, Phone = @Phone, Edited = 1
+	WHERE ShipperID = @ShipperID
+
+	update Shippers set CompanyName = @CompanyName, Phone = @Phone
+	where ShipperID = @ShipperID
+
+END

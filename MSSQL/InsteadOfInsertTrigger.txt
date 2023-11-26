@@ -1,0 +1,11 @@
+CREATE TRIGGER InsteadOfInsert
+   ON Shippers 
+   instead of insert
+AS 
+BEGIN
+	insert into ShippersLogs
+	select NULL, CompanyName, Phone, 0, 0, 0 from inserted
+
+	--insert into Shippers
+	--select NULL, CompanyName, Phone from inserted
+END

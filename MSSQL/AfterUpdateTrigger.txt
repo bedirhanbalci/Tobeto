@@ -1,0 +1,26 @@
+
+CREATE TRIGGER AfterUpdate
+   ON  Employees
+   AFTER UPDATE
+AS 
+BEGIN
+	DECLARE @EmployeeID int, @oldFirstName nvarchar(10), @oldLastName nvarchar(20),
+	 @newFirstName nvarchar(10), @newLastName nvarchar(20), @Note nvarchar(300)
+
+	select @EmployeeID = EmployeeID, @oldFirstName = FirstName, @oldLastName = LastName 
+	from deleted
+
+	select @newFirstName = FirstName, @newLastName = LastName 
+	from inserted
+
+	if @oldFirstName + ' ' + @oldLastName <> @newFirstName + ' ' + @newLastName
+	begin
+		set @Note = CONVERT(nvarchar(30), GETDATE()) + ' tarih ve saatinde çalýþan 
+		adý ve soyadý deðiþtirilmiþtir. (' + @oldFirstName + ' ' + @oldLastName + ' --> ' + 
+		@newFirstName + ' ' + @newLastName + ')'
+		
+		UPDATE Employees set Notes = @Note where EmployeeID = @EmployeeID
+	end
+END
+
+
