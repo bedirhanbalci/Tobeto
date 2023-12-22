@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <script>
+      function run() {
+        var p = document.getElementById("parag");
+        console.log(p.innerHTML);
+        p.innerHTML = "Hello JavaScript!";
+        console.log(p.innerHTML);
+      }
+
+      function loadList() {
+        var fruits = ["Banana", "Apple", "Orange", "Mango", "Kiwi"];
+
+        var ul = document.getElementById("list");
+        ul.innerHTML = "";
+
+        for (var i = 0; i < fruits.length; i++) {
+          var item = fruits[i];
+          var li = document.createElement("li");
+          li.innerHTML = "<b>" + item + "</b>";
+
+          ul.appendChild(li);
+        }
+      }
+
+      function onLoad() {
+        console.log("onload worked");
+        var b = document.getElementById("btn");
+        // b.onclick = run;
+
+        b.onclick = function () {
+          var p = document.getElementById("parag");
+          console.log(p.innerHTML);
+          p.innerHTML = "Hello JavaScript!";
+          console.log(p.innerHTML);
+        };
+      }
+    </script>
+  </head>
+  <body onload="onLoad()">
+    <h1>DOM Manipulation</h1>
+    <hr />
+
+    <p id="parag">Hello World!</p>
+    <button id="btn">Add Text</button>
+
+    <hr />
+    <button onclick="loadList()">Fill out the list!</button>
+    <ul id="list"></ul>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <script>
+      var age = 15;
+
+      function ageUp() {
+        age++;
+
+        // if (age < 18) {
+        //   console.log("Your age is under 18");
+        // } else if (age > 18) {
+        //   console.log("Your age is over 18");
+        // } else {
+        //   console.log("Your age is equal to 18");
+        // }
+
+        // if (age < 18) {
+        //   console.log("Your age is under 18");
+        // } else if (age == 18) {
+        //   console.log("Your age is equal to 18");
+        // } else {
+        //   console.log("Your age is over 18");
+        // }
+
+        if (age <= 18) {
+          if (age == 18) {
+            console.log("Your age is equal to 18");
+          } else {
+            console.log("Your age is under 18");
+          }
+        } else if (age > 18 && age < 24) {
+          console.log("Your age is between 18 and 24");
+        } else if (age > 24 || age == 24) {
+          console.log("You are 24 or older");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Conditions</h1>
+    <hr />
+
+    <button onclick="ageUp()">Increase Age</button>
+  </body>
+</html>
